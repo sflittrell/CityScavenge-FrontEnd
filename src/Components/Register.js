@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+import { useAuth } from '../Utilities/AuthContext'
 
 export default function Register(props) {
 
@@ -7,14 +8,17 @@ export default function Register(props) {
     const handleChange = (e) => {
         setFormInputs(previousState => (
             {
-                ...previousState, 
-                [e.target.name] : e.target.value
+                ...previousState,
+                [e.target.name]: e.target.value
             }
         ))
     }
 
+    const { register } = useAuth();
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        register(formInputs);
     }
     console.log(formInputs)
 
@@ -25,28 +29,28 @@ export default function Register(props) {
                     <form className="needs-validaton" novalidate onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label for="validationCustom01" className="form-label">First Name</label>
-                            <input name="firstName" type="text" className="form-control" id="validationCustom01" required aria-describedby="firstName" value={formInputs.firstName || '' } onChange={handleChange} />
+                            <input name="firstName" type="text" className="form-control" id="validationCustom01" required aria-describedby="firstName" value={formInputs.firstName || ''} onChange={handleChange} />
                             <div className="valid-feedback">
                                 Looks good!
                             </div>
                         </div>
                         <div className="mb-3">
                             <label for="exampleInputLastName" className="form-label">Last Name</label>
-                            <input name="lastName" type="text" className="form-control" id="exampleInputLastName" required aria-describedby="firstName" value={formInputs.lastName || '' } onChange={handleChange} />
+                            <input name="lastName" type="text" className="form-control" id="exampleInputLastName" required aria-describedby="firstName" value={formInputs.lastName || ''} onChange={handleChange} />
                         </div>
                         <div className="valid-feedback">
                             Looks good!
                             </div>
                         <div className="mb-3">
                             <label for="exampleInputPhone" className="form-label">Phone</label>
-                            <input name="phone" type="text" className="form-control" id="exampleInputPhone" aria-describedby="phone" value={formInputs.phone || '' } onChange={handleChange} />
+                            <input name="phone" type="text" className="form-control" id="exampleInputPhone" aria-describedby="phone" value={formInputs.phone || ''} onChange={handleChange} />
                         </div>
                         <div className="valid-feedback">
                             Looks good!
                             </div>
                         <div className="mb-3">
                             <label for="exampleInputEmail1" className="form-label">Email address</label>
-                            <input name="email" type="email" className="form-control" id="exampleInputEmail1" required aria-describedby="emailHelp" value={formInputs.email || '' } onChange={handleChange} />
+                            <input name="email" type="email" className="form-control" id="exampleInputEmail1" required aria-describedby="emailHelp" value={formInputs.email || ''} onChange={handleChange} />
                             <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                         </div>
                         <div className="valid-feedback">
@@ -54,7 +58,7 @@ export default function Register(props) {
                             </div>
                         <div className="mb-3">
                             <label for="exampleInputPassword1" className="form-label">Password</label>
-                            <input name="password" type="password" className="form-control" id="exampleInputPassword1" required value={formInputs.password || '' } onChange={handleChange} />
+                            <input name="password" type="password" className="form-control" id="exampleInputPassword1" required value={formInputs.password || ''} onChange={handleChange} />
                         </div>
                         <div className="valid-feedback">
                             Looks good!
