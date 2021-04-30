@@ -11,7 +11,7 @@ export function AxiosHelper(props) {
         failureMethod = error => console.log(error),
     } = props;
 
-    const apiUrl = 'http(s)://cityscavengebe-sflittrell527093.codeanyapp.com'
+    const apiUrl = 'https://cityscavengebe-sflittrell527093.codeanyapp.com'
 
     return axios({
 		method,

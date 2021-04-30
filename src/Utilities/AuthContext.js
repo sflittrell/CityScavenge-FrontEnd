@@ -13,10 +13,15 @@ export const AuthHelper = () => {
         if (lsToken) {
             AxiosHelper({
                 url: '/api/register',
+                successMethod: saveUserData,
             })
             setToken(lsToken);
         }
     }, [])
+
+    function saveUserData(response) {
+        console.log("user data", response.data)
+    }
 
     function saveToken(response) {
         const apiToken = response.data.data.token;
@@ -30,7 +35,8 @@ export const AuthHelper = () => {
             method: 'post', 
             url: '/api/register', 
             data: regData, 
-            successMethod: saveToken})
+            successMethod: saveToken
+        })
 
     }
 
@@ -39,7 +45,7 @@ export const AuthHelper = () => {
 
 export const AuthProvider = (props) => {
 
-    const initialContext = {};
+    const initialContext = AuthHelper();
 
     return (
     <AuthContext.Provider value={initialContext}>
