@@ -3,7 +3,7 @@ import './Home.css';
 
 export default function Home() {
     return (
-        <div className="">
+        <div className="container-xl">
             <div className="d-flex">
                 <img className="img-fluid d-none d-sm-none d-md-block" src="./img/CityScavengeHero.png" />
                 <img className="img-fluid d-sm-block d-md-none" src="./img/CityScavengeHero_mobile.png" />
@@ -17,7 +17,7 @@ export default function Home() {
                             <p>An amazing adventure that took us all over the city. I can't wait to do it again!</p>
                         </blockquote>
                         <figcaption className="blockquote-footer">
-                            Someone famous in <cite title="Source Title">Source Title</cite>
+                            Happy Customer <cite title="Source Title">Mark Trillo</cite>
                         </figcaption>
                     </figure>
                 </div>
@@ -39,7 +39,7 @@ export default function Home() {
                         <div className="card-body">
                             <h5 className="card-title fw-bold">How it Works</h5>
                             <p className="card-text">Interested in joining in on an exciting scavenger hunt? Check out what a typical hunt looks like.</p>
-                            <a href="#" className="btn btn-primary position-absolute bottom-0 start-50 translate-middle-x  mb-3">Check out how it works</a>
+                            <a href="#" className="btn btn-primary">See how it works</a>
                         </div>
                     </div>
                 </div>
@@ -48,8 +48,8 @@ export default function Home() {
                         <i className="bi bi-geo-alt-fill display-3 text-warning" />
                         <div className="card-body">
                             <h5 className="card-title fw-bold">Get Started</h5>
-                            <p className="card-text">Ready for an amazing adventure? Can't wait to get started? Jump on in and start your hunt?</p>
-                            <a href="#" className="btn btn-primary position-absolute bottom-0 start-50 translate-middle-x mb-3">Get started</a>
+                            <p className="card-text">Are you ready for an amazing adventure? Can't wait to get started? Jump on in and start your hunt?</p>
+                            <a href="#" className="btn btn-primary">Get started</a>
                         </div>
                     </div>
                 </div>
