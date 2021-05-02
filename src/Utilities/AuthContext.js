@@ -27,6 +27,7 @@ export const AuthHelper = () => {
         const apiToken = response.data.data.token;
         setToken(apiToken);
         window.localStorage.setItem('token', apiToken)
+        console.log(apiToken)
     }
 
     function register(regData) {
@@ -40,7 +41,16 @@ export const AuthHelper = () => {
 
     }
 
-    return {token, register}
+    function login(loginData) {
+        AxiosHelper({
+            method: 'post', 
+            url: '/oauth/token', 
+            data: loginData, 
+            successMethod: saveToken
+        })
+    }
+
+    return {token, register, login}
 }
 
 export const AuthProvider = (props) => {

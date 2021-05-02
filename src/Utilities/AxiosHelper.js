@@ -8,7 +8,7 @@ export function AxiosHelper(props) {
         data = {},
         token = '',
         successMethod = response => console.log(response),
-        failureMethod = error => console.log(error),
+        failureMethod = error => console.log('error', error),
     } = props;
 
     const apiUrl = 'https://cityscavengebe-sflittrell527093.codeanyapp.com'
