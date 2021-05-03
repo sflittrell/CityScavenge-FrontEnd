@@ -3,7 +3,7 @@ import './Home.css';
 
 export default function Home() {
     return (
-        <div className="container-xl">
+        <div className="container-xxl p-0">
             <div className="d-flex">
                 <img className="img-fluid d-none d-sm-none d-md-block" src="./img/CityScavengeHero.png" />
                 <img className="img-fluid d-sm-block d-md-none" src="./img/CityScavengeHero_mobile.png" />

@@ -7,6 +7,7 @@ import Home from './Home.js';
 import Nav from './Nav.js';
 import Footer from './Footer.js';
 import WhatWeDo from './WhatWeDo.js';
+import MapPage from './MapPage.js';
 import { AuthProvider } from '../Utilities/AuthContext';
 
 
@@ -27,12 +28,13 @@ function App() {
               />
             </Route>
             <Route path='/login'>
-              <Login
-              />
+              <Login />
             </Route>
             <Route path='/whatwedo'>
-              <WhatWeDo
-              />
+              <WhatWeDo />
+            </Route>
+            <Route path='/map'>
+              <MapPage />
             </Route>
           </Switch>
           <Footer />

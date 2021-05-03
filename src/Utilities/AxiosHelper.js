@@ -20,7 +20,7 @@ export function AxiosHelper(props) {
 			'Content-Type': 'application/json;charset=UTF-8',
 			'Access-Control-Allow-Origin': '*',
 			'Accept': 'application/json',
-			'Authorization': 'Bearer ' + token
+			'Authorization': `Bearer ${token}`
 		},
 		data
 	})
