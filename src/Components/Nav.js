@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { useAuth } from '../Utilities/AuthContext'
 import './Nav.css';
 
 export default function Nav() {
+
+    const { logout } = useAuth()
+
     return (
         <div>
             <nav className="navbar navbar-expand-md fixed-top navbar-light bg-light">
@@ -22,6 +25,7 @@ export default function Nav() {
                     </div>
                     <Link className="btn btn-outline-dark me-2 d-none d-sm-none d-md-block" type="button" to={"/register/"}>Create Account</Link>
                     <Link className="btn btn-outline-dark me-2 d-none d-sm-none d-md-block" type="button" to={"/login/"}>Login</Link>
+                    <button className="btn btn-outline-dark me-2 d-none d-sm-none d-md-block" type="button" onClick={logout}>Logout</button>
                 </div>
             </nav>
         </div>
