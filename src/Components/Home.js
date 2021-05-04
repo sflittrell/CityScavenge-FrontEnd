@@ -1,5 +1,7 @@
 import React from 'react';
 import './Home.css';
+import Footer from './Footer.js';
+
 
 export default function Home() {
     return (
@@ -24,7 +26,7 @@ export default function Home() {
             </div>
             <div className="row m-4 row-cols-1 row-cols-md-3 g-4">
                 <div className="col">
-                    <div class="card h-100">
+                    <div className="card h-100">
                         <i className="bi bi-binoculars-fill display-3 text-warning"></i>
                         <div className="card-body">
                             <h5 className="card-title fw-bold">What We Do</h5>
@@ -34,7 +36,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="col">
-                    <div class="card h-100">
+                    <div className="card h-100">
                         <i className="bi bi-signpost-split-fill display-3 text-warning" />
                         <div className="card-body">
                             <h5 className="card-title fw-bold">How it Works</h5>
@@ -44,7 +46,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="col">
-                    <div class="card h-100">
+                    <div className="card h-100">
                         <i className="bi bi-geo-alt-fill display-3 text-warning" />
                         <div className="card-body">
                             <h5 className="card-title fw-bold">Get Started</h5>
@@ -54,6 +56,7 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }

@@ -1,12 +1,12 @@
 import React, {createContext, useState, useEffect, useContext} from 'react';
 import {AxiosHelper} from './AxiosHelper';
-import { BrowserRouter as Router, useHistory} from 'react-router-dom';
+// import { BrowserRouter as Router, useHistory} from 'react-router-dom';
 
 const AuthContext = createContext({});
 
 export const AuthHelper = () => {
 
-    let history = useHistory();
+    // let history = useHistory();
 
     const [token, setToken] = useState('')
 
@@ -30,7 +30,7 @@ export const AuthHelper = () => {
         const apiToken = response.data.data.token;
         setToken(apiToken);
         window.localStorage.setItem('token', apiToken)
-        console.log(history)
+        console.log(token)
     }
 
     function destroyToken() {
@@ -57,7 +57,7 @@ export const AuthHelper = () => {
             data: loginData, 
             grant_type: "password", 
             client_id: "2",
-            client_secret: "bG2EW3f3W57kB0AD1eKuVp8u9EddYcBKW2dgp2ZS",
+            client_secret: "A6TFye0jzIrmMUO3eDCXTlTDEwaIzEmqVoP4kDV7",
             username: loginData.email,
             password: loginData.password,
             successMethod: saveToken

@@ -5,7 +5,6 @@ import Register from './Register.js';
 import Login from './Login.js';
 import Home from './Home.js';
 import Nav from './Nav.js';
-import Footer from './Footer.js';
 import WhatWeDo from './WhatWeDo.js';
 import MapPage from './MapPage.js';
 import { AuthProvider } from '../Utilities/AuthContext';
@@ -37,7 +36,6 @@ function App() {
               <MapPage />
             </Route>
           </Switch>
-          <Footer />
         </Router>
       </AuthProvider>
     </div>

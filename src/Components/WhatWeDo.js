@@ -1,4 +1,6 @@
 import React from 'react'
+import Footer from './Footer.js';
+
 
 export default function WhatWeDo() {
     return (
@@ -21,6 +23,7 @@ export default function WhatWeDo() {
                     </p>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }

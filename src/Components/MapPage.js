@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import {googleKey} from './Constraint.js';
+import Footer from './Footer.js';
+
 
 
 export default function MapPage() {
@@ -31,7 +34,7 @@ export default function MapPage() {
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyDX21MVlTXj0Ib3AKHakTH18mOThLNv9HM"
+    googleMapsApiKey: googleKey
   })
 
   const [map, setMap] = useState(null)
@@ -62,6 +65,7 @@ export default function MapPage() {
           }
         </GoogleMap>
         : 'Loading'}
+        <Footer />
     </div>
   )
 }
