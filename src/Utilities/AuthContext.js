@@ -1,6 +1,6 @@
-import React, {createContext, useState, useEffect, useContext} from 'react';
-import {AxiosHelper} from './AxiosHelper';
-// import { BrowserRouter as Router, useHistory} from 'react-router-dom';
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import { AxiosHelper } from './AxiosHelper';
+import history from './history';
 
 const AuthContext = createContext({});
 
@@ -13,13 +13,15 @@ export const AuthHelper = () => {
     useEffect(() => {
         let lsToken = window.localStorage.getItem('token');
 
-        if (lsToken) {
-            AxiosHelper({
-                url: '/api/register',
-                successMethod: saveUserData,
-            })
+        // if (lsToken) {
+        //     AxiosHelper({
+        //         url: '/api/register',
+        //         successMethod: saveUserData,
+        //         failureMethod: destroyToken,
+        //         token: lsToken
+        //     })
             setToken(lsToken);
-        }
+        // }
     }, [])
 
     function saveUserData(response) {
@@ -27,10 +29,11 @@ export const AuthHelper = () => {
     }
 
     function saveToken(response) {
-        const apiToken = response.data.data.token;
+        // console.log(response)
+        const apiToken = response.data.data ? response.data.data.token : response.data.access_token;
         setToken(apiToken);
         window.localStorage.setItem('token', apiToken)
-        console.log(token)
+        history.replace('/');
     }
 
     function destroyToken() {
@@ -41,25 +44,18 @@ export const AuthHelper = () => {
     function register(regData) {
 
         AxiosHelper({
-            method: 'post', 
-            url: '/api/register', 
-            data: regData, 
+            method: 'post',
+            url: '/api/register',
+            data: regData,
             successMethod: saveToken
         })
-        // history.replace('/')
-
     }
 
     function login(loginData) {
         AxiosHelper({
-            method: 'post', 
-            url: '/oauth/token', 
-            data: loginData, 
-            grant_type: "password", 
-            client_id: "2",
-            client_secret: "A6TFye0jzIrmMUO3eDCXTlTDEwaIzEmqVoP4kDV7",
-            username: loginData.email,
-            password: loginData.password,
+            method: 'post',
+            url: '/oauth/token',
+            data: loginData,
             successMethod: saveToken
         })
     }
@@ -72,7 +68,7 @@ export const AuthHelper = () => {
         })
     }
 
-    return {token, register, login, logout}
+    return { token, register, login, logout }
 }
 
 export const AuthProvider = (props) => {
@@ -80,10 +76,11 @@ export const AuthProvider = (props) => {
     const initialContext = AuthHelper();
 
     return (
-    <AuthContext.Provider value={initialContext}>
-    {props.children}
-    </AuthContext.Provider>
-)}
+        <AuthContext.Provider value={initialContext}>
+            {props.children}
+        </AuthContext.Provider>
+    )
+}
 
 export const useAuth = () => useContext(AuthContext)
 

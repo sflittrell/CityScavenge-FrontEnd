@@ -1,13 +1,17 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+import {Router} from 'react-router';
 import Register from './Register.js';
 import Login from './Login.js';
 import Home from './Home.js';
 import Nav from './Nav.js';
 import WhatWeDo from './WhatWeDo.js';
+import HuntsPage from './HuntsPage.js';
+import Hunt from './Hunt.js';
 import MapPage from './MapPage.js';
 import { AuthProvider } from '../Utilities/AuthContext';
+import history from '../Utilities/history'
 
 
 function App() {
@@ -15,22 +19,26 @@ function App() {
   return (
     <div className="App">
       <AuthProvider>
-        <Router>
+        <Router history={history}>
             <Nav />
           <Switch>
             <Route exact path='/' >
               <Home />
             </Route>
             <Route path='/register'>
-              <Register
-                register
-              />
+              <Register />
             </Route>
             <Route path='/login'>
               <Login />
             </Route>
             <Route path='/whatwedo'>
               <WhatWeDo />
+            </Route>
+            <Route path='/findahunt'>
+              <HuntsPage />
+            </Route>
+            <Route path='/hunt'>
+              <Hunt />
             </Route>
             <Route path='/map'>
               <MapPage />

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { useAuth } from '../Utilities/AuthContext'
 
 
@@ -19,9 +19,16 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        login(formInputs);
+        const data = {
+            grant_type: "password",
+            client_id: "2",
+            client_secret: "tBef3vje8k3M3DRFGChX5PpQmI884B4Q01aejCJL",
+            username: formInputs.email,
+            password: formInputs.password,
+        }
+        login(data);
     }
-    console.log(formInputs)
+    // console.log(formInputs)
 
     return (
         <div className="center-text">

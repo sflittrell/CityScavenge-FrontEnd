@@ -20,11 +20,11 @@ export default function Register(props) {
         e.preventDefault();
         register(formInputs);
     }
-    console.log(formInputs)
+    // console.log(formInputs)
 
     return (
         <div className="center-text">
-            <div className="card col-5 position-absolute top-50 start-50 translate-middle">
+            <div className="card col-md-5  col-sm-12 position-absolute top-50 start-50 translate-middle">
                 <div className="card-body">
                     <form className="needs-validaton" noValidate onSubmit={handleSubmit}>
                         <div className="mb-3">
