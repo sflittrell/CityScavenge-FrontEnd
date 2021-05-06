@@ -6,7 +6,7 @@ import Register from './Register.js';
 import Login from './Login.js';
 import Home from './Home.js';
 import Nav from './Nav.js';
-import WhatWeDo from './WhatWeDo.js';
+import HowItWorks from './HowItWorks.js';
 import HuntsPage from './HuntsPage.js';
 import Hunt from './Hunt.js';
 import MapPage from './MapPage.js';
@@ -31,13 +31,13 @@ function App() {
             <Route path='/login'>
               <Login />
             </Route>
-            <Route path='/whatwedo'>
-              <WhatWeDo />
+            <Route path='/howitworks'>
+              <HowItWorks />
             </Route>
             <Route path='/findahunt'>
               <HuntsPage />
             </Route>
-            <Route path='/hunt'>
+            <Route path='/hunt/:id'>
               <Hunt />
             </Route>
             <Route path='/map'>

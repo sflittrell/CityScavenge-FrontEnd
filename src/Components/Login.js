@@ -22,7 +22,7 @@ export default function Login() {
         const data = {
             grant_type: "password",
             client_id: "2",
-            client_secret: "tBef3vje8k3M3DRFGChX5PpQmI884B4Q01aejCJL",
+            client_secret: "lBaMhlXMVWROOVmsflXzle2TGXb0CWwuUw7kZgCi",
             username: formInputs.email,
             password: formInputs.password,
         }

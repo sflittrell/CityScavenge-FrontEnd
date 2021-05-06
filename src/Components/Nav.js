@@ -17,7 +17,7 @@ export default function Nav() {
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
                         {/* <Link className="nav-link" to={"/whatwedo/"}>What We Do</Link> */}
-                        <Link className="nav-link" to={"/#/"}>How It Works</Link>
+                        <Link className="nav-link" to={"/howitworks/"}>How It Works</Link>
                         <Link className="nav-link" to={"/findahunt/"}>Find a Hunt</Link>
                         {!token && <Link className="btn btn-outline-dark me-2 d-sm-block d-md-none" type="button" to={"/register/"}>Create Account</Link>}
                         {!token && <Link className="btn btn-outline-dark me-2 d-sm-block d-md-none" type="button" to={"/login/"}>Login</Link>}

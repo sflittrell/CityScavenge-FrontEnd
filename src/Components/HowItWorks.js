@@ -2,18 +2,17 @@ import React from 'react'
 import Footer from './Footer.js';
 
 
-export default function WhatWeDo() {
+export default function howItWorks() {
     return (
         <div className="container-fluid">
             <div className="row mt-5">
-                <div className="mt-5 col col-md-6 col-sm-12 d-flex">
-                    <img className="img-fluid" src="./img/CityScavengeHero.png" />
-                    <img className="img-fluid d-none d-sm-none d-md-block" src="./img/Hunt3_Dt.jpg" />
-                    <img className="img-fluid d-sm-block d-md-none" src="./img/Hunt3_mobile.jpg" />
+                <div className="mt-5 p-1 col col-md-6 col-sm-12 d-flex">
+                    <img className="img-fluid d-none d-sm-none d-md-block" src="/img/Hunt3_Dt.jpg" />
+                    <img className="img-fluid d-sm-block d-md-none" src="/img/Hunt3_mobile.jpg" />
                 </div>
-                <div className="mt-5 col col-md-6 col-sm-12">
+                <div className="mt-5 p-1 col col-md-6 col-sm-12">
                     <h1>
-                        What We Do
+                        How it Works
                     </h1>
                     <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aenean pharetra magna ac placerat vestibulum lectus mauris ultrices. Mi eget mauris pharetra et ultrices neque ornare. Ornare suspendisse sed nisi lacus sed viverra tellus in hac. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Ultrices neque ornare aenean euismod elementum. Habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper.

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
-import {googleKey} from './constraints.js';
+import { googleKey } from './constraints.js';
 import Footer from './Footer.js';
 
 
@@ -27,8 +27,8 @@ export default function MapPage() {
   })
 
   const containerStyle = {
-    width: '400px',
-    height: '400px'
+    width: '700px',
+    height: '700px'
   };
 
 
@@ -50,22 +50,26 @@ export default function MapPage() {
   }, [])
 
   return (
-    <div>
-      {isLoaded && Object.keys(currentPosition).length > 0 ?
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={currentPosition}
-          zoom={18}
-        // onLoad={onLoad}
-        // onUnmount={onUnmount}
-        >
-          {currentPosition.lat ?
-            <Marker position={currentPosition} /> :
-            null
-          }
-        </GoogleMap>
-        : 'Loading'}
-        <Footer />
+    <div className="container-fluid center-text">
+      <div className="row mt-5">
+        <div className="col">
+          {isLoaded && Object.keys(currentPosition).length > 0 ?
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={currentPosition}
+              zoom={18}
+            // onLoad={onLoad}
+            // onUnmount={onUnmount}
+            >
+              {currentPosition.lat ?
+                <Marker position={currentPosition} /> :
+                null
+              }
+            </GoogleMap>
+            : 'Loading'}
+          <Footer />
+        </div>
+      </div>
     </div>
   )
 }
