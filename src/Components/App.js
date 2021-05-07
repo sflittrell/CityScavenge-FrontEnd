@@ -12,6 +12,7 @@ import Hunt from './Hunt.js';
 import MapPage from './MapPage.js';
 import { AuthProvider } from '../Utilities/AuthContext';
 import history from '../Utilities/history'
+import ScavengeData from '../Utilities/ScavengeData';
 
 
 function App() {
@@ -34,15 +35,7 @@ function App() {
             <Route path='/howitworks'>
               <HowItWorks />
             </Route>
-            <Route path='/findahunt'>
-              <HuntsPage />
-            </Route>
-            <Route path='/hunt/:id'>
-              <Hunt />
-            </Route>
-            <Route path='/map'>
-              <MapPage />
-            </Route>
+            <ScavengeData />
           </Switch>
         </Router>
       </AuthProvider>

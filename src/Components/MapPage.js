@@ -12,8 +12,8 @@ export default function MapPage() {
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude);
+        // console.log("Latitude is :", position.coords.latitude);
+        // console.log("Longitude is :", position.coords.longitude);
         const geoPosition = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
@@ -66,7 +66,10 @@ export default function MapPage() {
                 null
               }
             </GoogleMap>
-            : 'Loading'}
+            : <div className="d-flex align-items-center m-5">
+              <strong>Loading...</strong>
+              <div className="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+            </div>}
           <Footer />
         </div>
       </div>

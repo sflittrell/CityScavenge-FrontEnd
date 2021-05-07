@@ -27,8 +27,6 @@ export const AuthHelper = () => {
     
     function saveUserData(response) {
         setUser(response.data);
-        console.log(user)
-
     }
     
     function saveToken(response) {
@@ -37,11 +35,21 @@ export const AuthHelper = () => {
         setToken(apiToken);
         window.localStorage.setItem('token', apiToken)
         history.replace('/');
+        getUserData(apiToken);
     }
     
     function destroyToken() {
         setToken('')
         window.localStorage.removeItem('token');
+    }
+
+    function getUserData(t) {
+        AxiosHelper({
+            url: '/api/user',
+            successMethod: saveUserData,
+            token: t
+        })
+        console.log(user)
     }
     
     function register(regData) {
@@ -71,21 +79,7 @@ export const AuthHelper = () => {
         })
     }
     
-    const [hunts, setHunts] = useState([])
-    
-        useEffect(() => {
-            AxiosHelper({
-                url: '/api/hunts',
-                successMethod: saveHunts,
-            })
-        }, [])
-    
-    function saveHunts(response) {
-        // console.log("hunts data", response.data)
-        setHunts(response.data)
-    }
-    
-    return { token, register, login, logout, hunts }
+    return { token, register, login, logout, user }
 }
 
 export const AuthProvider = (props) => {
