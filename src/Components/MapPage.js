@@ -2,10 +2,16 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { googleKey } from './constraints.js';
 import Footer from './Footer.js';
-
-
+import { useHunt } from '../Utilities/HuntContext';
 
 export default function MapPage() {
+
+  const { huntData, findDistance } = useHunt();
+
+  const progress = {
+    waypoint: 0,
+    clue: 0
+}
 
   const [currentPosition, setCurrentPosition] = useState({})
 
@@ -31,7 +37,6 @@ export default function MapPage() {
     height: '700px'
   };
 
-
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: googleKey
@@ -50,10 +55,27 @@ export default function MapPage() {
   }, [])
 
   return (
-    <div className="container-fluid center-text">
+
+    <div className="container-fluid center-text mt-5">
+    {/* {console.log(findDistance(currentPosition.lat, currentPosition.lng, huntData.hunts.waypoints[0].lat, huntData.hunts.waypoints[0].lng))} */}
+      {/* {huntData ? <div className="alert alert-success alert-dismissible fade show mt-5" role="alert">
+        <h4 className="alert-heading">Well done!</h4>
+        <p>{huntData.hunts.waypoints[0].clues[0].clueText}</p>
+        <hr />
+        <button type="button" className="btn btn-primary" data-bs-dismiss="alert" aria-label="Close">Click to Close</button>
+
+      </div>
+      : 'Loading'} */}
       <div className="row mt-5">
         <div className="col">
-          {isLoaded && Object.keys(currentPosition).length > 0 ?
+          {isLoaded && Object.keys(currentPosition).length > 0 ? 
+          <>
+          {console.log(findDistance(currentPosition.lat, currentPosition.lng, huntData.hunts.waypoints[0].lat, huntData.hunts.waypoints[0].lng))}
+          <div className="alert alert-success alert-dismissible fade show" role="alert">
+        <h4 className="alert-heading">Clue...</h4>
+        <p>{huntData.hunts.waypoints[0].clues[0].clueText}</p>
+      </div>
+      
             <GoogleMap
               mapContainerStyle={containerStyle}
               center={currentPosition}
@@ -66,6 +88,7 @@ export default function MapPage() {
                 null
               }
             </GoogleMap>
+            </>
             : <div className="d-flex align-items-center m-5">
               <strong>Loading...</strong>
               <div className="spinner-border ms-auto" role="status" aria-hidden="true"></div>

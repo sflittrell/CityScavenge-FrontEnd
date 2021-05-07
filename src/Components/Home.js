@@ -35,8 +35,8 @@ export default function Home() {
                     <img className="img-fluid" src="./img/CityScavengeHunt_Thumb.png" />
                 </div>
             </div>
-            <div className="row m-4 row-cols-1 row-cols-md-3 g-4">
-                <div className="col">
+            <div className="row m-4 row-cols-1 row-cols-md-2 g-4">
+                {/* <div className="col">
                     <div className="card h-100">
                         <i className="bi bi-binoculars-fill display-3 text-warning"></i>
                         <div className="card-body">
@@ -45,7 +45,7 @@ export default function Home() {
                             <Link to={"/map/"} className="btn btn-primary">See what we do</Link>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="col">
                     <div className="card h-100">
                         <i className="bi bi-signpost-split-fill display-3 text-warning" />
