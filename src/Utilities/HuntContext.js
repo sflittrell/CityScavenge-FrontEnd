@@ -15,15 +15,17 @@ export const HuntHelper = () => {
     const [huntProgress, setHuntProgress] = useState({ hunt: 0, waypoint: 0, clue: 0, atWaypoint: false })
 
     function createHuntData(id) {
-        // console.log(user.id, id);
+        console.log('createHunt 1');
         if (token.length > 0 ) {
-            AxiosHelper({
-                method: 'post',
-                url: `/api/userhunt/create`,
-                token,
-                data: { hunt_id: parseInt(id) },
-                successMethod: saveHuntData
-            })
+            console.log('createHunt 2');
+                console.log('createHunt 3');
+                AxiosHelper({
+                    method: 'post',
+                    url: `/api/userhunt/create`,
+                    token,
+                    data: { hunt_id: parseInt(id) },
+                    successMethod: saveHuntData
+                })
             // console.log('This is the api call')
         } else {
             history.push('/login')
@@ -32,6 +34,7 @@ export const HuntHelper = () => {
 
     useEffect(() => {
         let lsHuntProgress = window.localStorage.getItem('huntProgress');
+        { console.log('lsHuntProgress', lsHuntProgress) }
 
         if (lsHuntProgress && token.length > 0) {
             let newlsHuntProgress = JSON.parse(lsHuntProgress)
@@ -43,27 +46,33 @@ export const HuntHelper = () => {
         }
     }, [])
 
+    function updateHuntData(response) {
+        console.log('updateHuntData', response.data)
+        setHuntData(response.data);
+    }
+
     function saveHuntData(response) {
         setHuntData(response.data);
         console.log('hunt response', response)
         // updateHuntProgress()
         setHuntProgress(prev => {
-            let newHuntProgress = {...prev}
-            newHuntProgress.hunt = response.data.hunt_id
-            window.localStorage.setItem('huntProgress', JSON.stringify(newHuntProgress))
-           return newHuntProgress
-        })
-        history.push('/map')
-    }
-
-    function updateHuntProgress(key, value) {
-        setHuntProgress(prev => {
             let newHuntProgress = { ...prev }
-            newHuntProgress.hunt = value
+            newHuntProgress.hunt = response.data.hunt_id
             window.localStorage.setItem('huntProgress', JSON.stringify(newHuntProgress))
             return newHuntProgress
         })
+        console.log('saveHuntData')
+        history.push('/map')
     }
+
+    // function updateHuntProgress(key, value) {
+    //     setHuntProgress(prev => {
+    //         let newHuntProgress = { ...prev }
+    //         newHuntProgress.hunt = value
+    //         window.localStorage.setItem('huntProgress', JSON.stringify(newHuntProgress))
+    //         return newHuntProgress
+    //     })
+    // }
 
     // function saveHuntProgress(key, value) {
     //     setHuntProgress(key = value)

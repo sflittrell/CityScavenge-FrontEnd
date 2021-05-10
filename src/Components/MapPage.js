@@ -14,32 +14,58 @@ export default function MapPage() {
 
   const [formInput, setFormInput] = useState('');
 
-  console.log(huntProgress)
-  console.log(huntData)
+  // console.log(huntProgress)
+  // console.log(huntData)
 
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(function (position, error, options) {
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude);
+      setInterval(function(){
+      var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+      };
+
+      function success(position) {
         const geoPosition = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         }
         setCurrentPosition(previousState => geoPosition);
-      },
-        function (error) {
-          console.log(`Error Code = ${error.code} - ${error.message}`)
-        });
-      if (huntData) {
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+      }
+
+      function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+      }
+
+      navigator.geolocation.getCurrentPosition(success, error, options);
+    }, 15000)
+
+      // if (navigator.geolocation) {
+      //   navigator.geolocation.watchPosition(function (position, error, options) {
+      //     console.log("Latitude is :", position.coords.latitude);
+      //     console.log("Longitude is :", position.coords.longitude);
+      //     const geoPosition = {
+      //       lat: position.coords.latitude,
+      //       lng: position.coords.longitude
+      //     }
+      //     setCurrentPosition(previousState => geoPosition);
+      //   },
+      //     function (error) {
+      //       console.log(`Error Code = ${error.code} - ${error.message}`)
+
+      if (huntData && huntProgress) {
         let dist = findDistance(currentPosition.lat, currentPosition.lng, huntData.hunts.waypoints[huntProgress.waypoint].lat, huntData.hunts.waypoints[huntProgress.clue].lng)
-        let wayDist = 100/*huntData.hunts.waypoints[huntProgress.waypoint].distance*/;
+        let wayDist = 50/*huntData.hunts.waypoints[huntProgress.waypoint].distance*/;
         let clueDist = huntData.hunts.waypoints[huntProgress.clue].clues[huntProgress.clue].distance;
         if (dist < wayDist && !huntProgress.atWaypoint) {
           setHuntProgress({ ...huntProgress, atWaypoint: true })
         }
         // console.log('at waypoint', huntProgress.atWaypoint)
       }
+
     }
   })
 
@@ -55,12 +81,12 @@ export default function MapPage() {
     if (formInput === huntData.hunts.waypoints[huntProgress.waypoint].answer) {
       // setHuntProgress({ ...huntProgress, waypoint: huntProgress.waypoint + 1, })
       setHuntProgress(prev => {
-        let newHuntProgress = {...prev}
+        let newHuntProgress = { ...prev }
         newHuntProgress.waypoint = newHuntProgress.waypoint + 1;
         newHuntProgress.atWaypoint = false;
         window.localStorage.setItem('huntProgress', JSON.stringify(newHuntProgress))
-       return newHuntProgress
-    })
+        return newHuntProgress
+      })
 
       console.log('success', huntProgress)
     } else {
@@ -97,7 +123,7 @@ export default function MapPage() {
     <div className="container-fluid center-text mt-5">
       <div className="row mt-5">
         <div className="col">
-          {isLoaded && Object.keys(currentPosition).length > 0 && Object.keys(huntData).length > 0?
+          {isLoaded && Object.keys(currentPosition).length > 0 && Object.keys(huntData).length > 0 ?
             <>
               {/* {console.log('distance from current location to waypoint', currentPosition.lat, currentPosition.lng, Number(huntData.hunts.waypoints[0].lat), Number(huntData.hunts.waypoints[0].lng), findDistance(currentPosition.lat, currentPosition.lng, huntData.hunts.waypoints[0].lat, huntData.hunts.waypoints[0].lng))} */}
               <div className="alert alert-success alert-dismissible fade show" role="alert">
@@ -133,7 +159,7 @@ export default function MapPage() {
               </GoogleMap>
             </>
             : <div className="d-flex align-items-center m-5">
-              <strong>Loading...</strong>
+              <strong>Creating your hunt, please stand by...</strong>
               <div className="spinner-border ms-auto" role="status" aria-hidden="true"></div>
             </div>}
           <Footer />

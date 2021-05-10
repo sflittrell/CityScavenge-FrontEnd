@@ -18,8 +18,7 @@ export default function HuntsPage() {
                         <div className="card h-100">
                             <img src={`/img/Hunt_Thumb${hunt.photoNumber}.jpg`} className="card-img-top" alt="..." />
                             <div className="card-body">
-
-                                <Link className="card-title fs-3 fw-bold" to={`/hunt/${hunt.id}`}>{hunt.label}</Link>
+                                {!hunt.status ? <Link className="card-title fs-3 fw-bold" to={`/hunt/${hunt.id}`}>{hunt.label}</Link> : <div className="card-title fs-3 fw-bold">{hunt.label}</div>}
                             </div>
                             <div className="card-footer">
                                 <small className="text-muted">{hunt.status}</small>
