@@ -22,6 +22,10 @@ export const AuthHelper = () => {
                 token: lsToken
             })
             setToken(lsToken);
+        } else {
+            if (history.location.pathname == '/map') {
+            history.push('/login')
+            }
         }
     }, [])
     
@@ -34,7 +38,7 @@ export const AuthHelper = () => {
         const apiToken = response.data.data ? response.data.data.token : response.data.access_token;
         setToken(apiToken);
         window.localStorage.setItem('token', apiToken)
-        history.replace('/');
+        history.goBack();
         getUserData(apiToken);
     }
     
@@ -49,7 +53,7 @@ export const AuthHelper = () => {
             successMethod: saveUserData,
             token: t
         })
-        console.log(user)
+        // console.log(user)
     }
     
     function register(regData) {

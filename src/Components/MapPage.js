@@ -6,20 +6,22 @@ import { useHunt } from '../Utilities/HuntContext';
 
 export default function MapPage() {
 
-  const { huntData, findDistance } = useHunt();
+  // let atWaypoint = false;
 
-  const progress = {
-    waypoint: 0,
-    clue: 0
-}
+  const { huntData, findDistance, huntProgress, setHuntProgress } = useHunt();
 
   const [currentPosition, setCurrentPosition] = useState({})
 
+  const [formInput, setFormInput] = useState('');
+
+  console.log(huntProgress)
+  console.log(huntData)
+
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(function (position) {
-        // console.log("Latitude is :", position.coords.latitude);
-        // console.log("Longitude is :", position.coords.longitude);
+      navigator.geolocation.watchPosition(function (position, error, options) {
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
         const geoPosition = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
@@ -29,12 +31,46 @@ export default function MapPage() {
         function (error) {
           console.log(`Error Code = ${error.code} - ${error.message}`)
         });
+      if (huntData) {
+        let dist = findDistance(currentPosition.lat, currentPosition.lng, huntData.hunts.waypoints[huntProgress.waypoint].lat, huntData.hunts.waypoints[huntProgress.clue].lng)
+        let wayDist = 100/*huntData.hunts.waypoints[huntProgress.waypoint].distance*/;
+        let clueDist = huntData.hunts.waypoints[huntProgress.clue].clues[huntProgress.clue].distance;
+        if (dist < wayDist && !huntProgress.atWaypoint) {
+          setHuntProgress({ ...huntProgress, atWaypoint: true })
+        }
+        // console.log('at waypoint', huntProgress.atWaypoint)
+      }
     }
   })
 
+  const handleChange = (e) => {
+    setFormInput(previousState => (
+      e.target.value
+    ))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('answer', huntData.hunts.waypoints[huntProgress.waypoint].answer);
+    if (formInput === huntData.hunts.waypoints[huntProgress.waypoint].answer) {
+      // setHuntProgress({ ...huntProgress, waypoint: huntProgress.waypoint + 1, })
+      setHuntProgress(prev => {
+        let newHuntProgress = {...prev}
+        newHuntProgress.waypoint = newHuntProgress.waypoint + 1;
+        newHuntProgress.atWaypoint = false;
+        window.localStorage.setItem('huntProgress', JSON.stringify(newHuntProgress))
+       return newHuntProgress
+    })
+
+      console.log('success', huntProgress)
+    } else {
+      console.log('fail');
+    }
+  }
+
   const containerStyle = {
-    width: '700px',
-    height: '700px'
+    width: '400px',
+    height: '400px'
   };
 
   const { isLoaded } = useJsApiLoader({
@@ -42,52 +78,59 @@ export default function MapPage() {
     googleMapsApiKey: googleKey
   })
 
-  const [map, setMap] = useState(null)
+  // const [map, setMap] = useState(null)
 
-  const onLoad = useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds();
-    map.fitBounds(bounds);
-    setMap(map)
-  }, [])
+  // const onLoad = useCallback(function callback(map) {
+  //   const bounds = new window.google.maps.LatLngBounds();
+  //   map.fitBounds(bounds);
+  //   setMap(map)
+  // }, [])
 
-  const onUnmount = useCallback(function callback(map) {
-    setMap(null)
-  }, [])
+  // const onUnmount = useCallback(function callback(map) {
+  //   setMap(null)
+  // }, [])
+
+  // console.log(typeof huntProgress)
 
   return (
 
     <div className="container-fluid center-text mt-5">
-    {/* {console.log(findDistance(currentPosition.lat, currentPosition.lng, huntData.hunts.waypoints[0].lat, huntData.hunts.waypoints[0].lng))} */}
-      {/* {huntData ? <div className="alert alert-success alert-dismissible fade show mt-5" role="alert">
-        <h4 className="alert-heading">Well done!</h4>
-        <p>{huntData.hunts.waypoints[0].clues[0].clueText}</p>
-        <hr />
-        <button type="button" className="btn btn-primary" data-bs-dismiss="alert" aria-label="Close">Click to Close</button>
-
-      </div>
-      : 'Loading'} */}
       <div className="row mt-5">
         <div className="col">
-          {isLoaded && Object.keys(currentPosition).length > 0 ? 
-          <>
-          {console.log(findDistance(currentPosition.lat, currentPosition.lng, huntData.hunts.waypoints[0].lat, huntData.hunts.waypoints[0].lng))}
-          <div className="alert alert-success alert-dismissible fade show" role="alert">
-        <h4 className="alert-heading">Clue...</h4>
-        <p>{huntData.hunts.waypoints[0].clues[0].clueText}</p>
-      </div>
-      
-            <GoogleMap
-              mapContainerStyle={containerStyle}
-              center={currentPosition}
-              zoom={18}
-            // onLoad={onLoad}
-            // onUnmount={onUnmount}
-            >
-              {currentPosition.lat ?
-                <Marker position={currentPosition} /> :
-                null
-              }
-            </GoogleMap>
+          {isLoaded && Object.keys(currentPosition).length > 0 && Object.keys(huntData).length > 0?
+            <>
+              {/* {console.log('distance from current location to waypoint', currentPosition.lat, currentPosition.lng, Number(huntData.hunts.waypoints[0].lat), Number(huntData.hunts.waypoints[0].lng), findDistance(currentPosition.lat, currentPosition.lng, huntData.hunts.waypoints[0].lat, huntData.hunts.waypoints[0].lng))} */}
+              <div className="alert alert-success alert-dismissible fade show" role="alert">
+                <h4 className="alert-heading">Clue...</h4>
+                <p>{findDistance(currentPosition.lat, currentPosition.lng, huntData.hunts.waypoints[huntProgress.waypoint].lat, huntData.hunts.waypoints[huntProgress.clue].lng)}</p>
+                <p>{huntProgress.atWaypoint ? 'true' : 'false'}</p>
+                <p>{!huntProgress.atWaypoint ?
+                  huntData.hunts.waypoints[huntProgress.waypoint].clues[huntProgress.clue].clueText
+                  :
+                  huntData.hunts.waypoints[huntProgress.waypoint].question}</p>
+                {huntProgress.atWaypoint &&
+                  <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                      <label htmlFor="question" className="form-label">Answer Here</label>
+                      <input type="question" className="form-control" id="question" value={formInput || ''} onChange={handleChange} aria-describedby="question" />
+                    </div>
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                  </form>
+                }
+              </div>
+
+              <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={currentPosition}
+                zoom={18}
+              // onLoad={onLoad}
+              // onUnmount={onUnmount}
+              >
+                {currentPosition.lat ?
+                  <Marker position={currentPosition} /> :
+                  null
+                }
+              </GoogleMap>
             </>
             : <div className="d-flex align-items-center m-5">
               <strong>Loading...</strong>
