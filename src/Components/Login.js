@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 import { useAuth } from '../Utilities/AuthContext'
 
 
@@ -50,6 +51,9 @@ export default function Login() {
                             Looks good!
                             </div>
                         <button type="submit" className="btn btn-primary">Submit</button>
+                        <div className="mt-3">
+                            <Link to={'/register/'}>Click here to create account.</Link>
+                        </div>
                     </form>
                 </div>
             </div>

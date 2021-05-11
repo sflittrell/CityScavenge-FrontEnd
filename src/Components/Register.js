@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 import { useAuth } from '../Utilities/AuthContext'
 
 export default function Register(props) {
@@ -64,6 +65,9 @@ export default function Register(props) {
                             Looks good!
                             </div>
                         <button type="submit" className="btn btn-primary">Submit</button>
+                        <div className="mt-3">
+                            Already have an account? <Link to={'/login/'}>Click here to login</Link>
+                        </div>
                     </form>
                 </div>
             </div>
