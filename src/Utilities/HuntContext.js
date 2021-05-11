@@ -8,17 +8,26 @@ const HuntContext = createContext({});
 
 export const HuntHelper = () => {
 
-    const { token, user } = useAuth();
+    const { token } = useAuth();
 
     const [huntData, setHuntData] = useState('')
     const [huntsList, setHuntsList] = useState([])
-    const [huntProgress, setHuntProgress] = useState({ hunt: 0, waypoint: 0, clue: 0, atWaypoint: false })
+    const [huntProgress, setHuntProgress] = useState(checkLS)
+
+    function checkLS() {
+        let lsHuntProgress = window.localStorage.getItem('huntProgress');
+        if (lsHuntProgress) {
+            return JSON.parse(lsHuntProgress)
+        } else {
+            return { hunt: 0, waypoint: 0, clue: 0, atWaypoint: false }
+        }
+    }
 
     function createHuntData(id) {
-        console.log('createHunt 1');
         if (token.length > 0 ) {
-            console.log('createHunt 2');
-                console.log('createHunt 3');
+            let lsHuntProgress = window.localStorage.getItem('huntProgress');
+            if (!lsHuntProgress || lsHuntProgress.hunt === 0) {
+                console.log('create hunt')
                 AxiosHelper({
                     method: 'post',
                     url: `/api/userhunt/create`,
@@ -26,6 +35,9 @@ export const HuntHelper = () => {
                     data: { hunt_id: parseInt(id) },
                     successMethod: saveHuntData
                 })
+            } else {
+                history.push('/map/')
+            }
             // console.log('This is the api call')
         } else {
             history.push('/login')
@@ -34,22 +46,23 @@ export const HuntHelper = () => {
 
     useEffect(() => {
         let lsHuntProgress = window.localStorage.getItem('huntProgress');
+        let lsToken = window.localStorage.getItem('token');
         { console.log('lsHuntProgress', lsHuntProgress) }
 
-        if (lsHuntProgress && token.length > 0) {
+        if (lsHuntProgress && lsToken) {
             let newlsHuntProgress = JSON.parse(lsHuntProgress)
             AxiosHelper({
-                url: `/api/hunt/show/${newlsHuntProgress.hunt}`,
-                token,
+                url: `/api/userhunt/show/${newlsHuntProgress.hunt}`,
+                token: lsToken,
                 successMethod: saveHuntData,
             })
         }
     }, [])
 
-    function updateHuntData(response) {
-        console.log('updateHuntData', response.data)
-        setHuntData(response.data);
-    }
+    // function updateHuntData(response) {
+    //     console.log('updateHuntData', response.data)
+    //     setHuntData(response.data);
+    // }
 
     function saveHuntData(response) {
         setHuntData(response.data);
@@ -57,7 +70,7 @@ export const HuntHelper = () => {
         // updateHuntProgress()
         setHuntProgress(prev => {
             let newHuntProgress = { ...prev }
-            newHuntProgress.hunt = response.data.hunt_id
+            newHuntProgress.hunt = response.data.id
             window.localStorage.setItem('huntProgress', JSON.stringify(newHuntProgress))
             return newHuntProgress
         })

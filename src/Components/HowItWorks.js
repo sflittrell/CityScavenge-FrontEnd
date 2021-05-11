@@ -7,8 +7,8 @@ export default function howItWorks() {
         <div className="container-xxl p-0">
             <div className="row row-cols-1 row-cols-md-2 mt-5">
                 <div className="p-1 col d-flex">
-                    <img className="img-fluid d-none d-sm-none d-md-block" src="/img/Hunt3_Dt.jpg" />
-                    <img className="img-fluid d-sm-block d-md-none" src="/img/Hunt3_mobile.jpg" />
+                    <img className="img-fluid d-none d-sm-none d-md-block" src="/img/Hunt3_Dt.jpg" alt="" />
+                    <img className="img-fluid d-sm-block d-md-none" src="/img/Hunt3_mobile.jpg" alt="" />
                 </div>
                 <div className="col mt-2 ps-4 pe-5">
                     <h1>

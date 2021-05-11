@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, /*useCallback*/ } from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { googleKey } from './constraints.js';
 import Footer from './Footer.js';
@@ -19,53 +19,48 @@ export default function MapPage() {
 
   useEffect(() => {
     if (navigator.geolocation) {
-      setInterval(function(){
-      var options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-      };
+      const intervalID = setInterval(function () {
+        var options = {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
+        };
 
-      function success(position) {
-        const geoPosition = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
+        function success(position) {
+          const geoPosition = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+          setCurrentPosition(previousState => geoPosition);
+          console.log("Latitude is :", position.coords.latitude);
+          console.log("Longitude is :", position.coords.longitude);
         }
-        setCurrentPosition(previousState => geoPosition);
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude);
-      }
 
-      function error(err) {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
-      }
+        function error(err) {
+          console.warn(`ERROR(${err.code}): ${err.message}`);
+        }
 
-      navigator.geolocation.getCurrentPosition(success, error, options);
-    }, 15000)
+        // possibly use watchPosition instead of setInterval with getCurrentPosition
+        navigator.geolocation.getCurrentPosition(success, error, options);
+      }, 15000)
 
-      // if (navigator.geolocation) {
-      //   navigator.geolocation.watchPosition(function (position, error, options) {
-      //     console.log("Latitude is :", position.coords.latitude);
-      //     console.log("Longitude is :", position.coords.longitude);
-      //     const geoPosition = {
-      //       lat: position.coords.latitude,
-      //       lng: position.coords.longitude
-      //     }
-      //     setCurrentPosition(previousState => geoPosition);
-      //   },
-      //     function (error) {
-      //       console.log(`Error Code = ${error.code} - ${error.message}`)
-
-      if (huntData && huntProgress) {
-        let dist = findDistance(currentPosition.lat, currentPosition.lng, huntData.hunts.waypoints[huntProgress.waypoint].lat, huntData.hunts.waypoints[huntProgress.clue].lng)
-        let wayDist = 50/*huntData.hunts.waypoints[huntProgress.waypoint].distance*/;
-        let clueDist = huntData.hunts.waypoints[huntProgress.clue].clues[huntProgress.clue].distance;
+      if (huntData && huntProgress.hunt > 0 && currentPosition) {
+        console.log('huntData', huntData, 'huntProgress', huntProgress)
+        let currentLat = currentPosition.lat
+        let currentLng = currentPosition.lng
+        let waypointLat = huntData.hunts.waypoints[huntProgress.waypoint].lat
+        let waypointLng = huntData.hunts.waypoints[huntProgress.clue].lng
+        let dist = findDistance(currentLat, currentLng, waypointLat, waypointLng)
+        let wayDist = huntData.hunts.waypoints[huntProgress.waypoint].distance;
+        // let clueDist = huntData.hunts.waypoints[huntProgress.clue].clues[huntProgress.clue].distance;
         if (dist < wayDist && !huntProgress.atWaypoint) {
           setHuntProgress({ ...huntProgress, atWaypoint: true })
         }
         // console.log('at waypoint', huntProgress.atWaypoint)
       }
-
+      return function cleanup() {
+        clearInterval(intervalID)
+      }
     }
   })
 

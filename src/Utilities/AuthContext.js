@@ -23,16 +23,16 @@ export const AuthHelper = () => {
             })
             setToken(lsToken);
         } else {
-            if (history.location.pathname == '/map') {
-            history.push('/login')
+            if (history.location.pathname === '/map') {
+                history.push('/login')
             }
         }
     }, [])
-    
+
     function saveUserData(response) {
         setUser(response.data);
     }
-    
+
     function saveToken(response) {
         // console.log(response)
         const apiToken = response.data.data ? response.data.data.token : response.data.access_token;
@@ -41,10 +41,11 @@ export const AuthHelper = () => {
         history.goBack();
         getUserData(apiToken);
     }
-    
+
     function destroyToken() {
         setToken('')
         window.localStorage.removeItem('token');
+        window.localStorage.removeItem('huntProgress');
     }
 
     function getUserData(t) {
@@ -55,9 +56,9 @@ export const AuthHelper = () => {
         })
         // console.log(user)
     }
-    
+
     function register(regData) {
-        
+
         AxiosHelper({
             method: 'post',
             url: '/api/register',
@@ -65,7 +66,7 @@ export const AuthHelper = () => {
             successMethod: saveToken
         })
     }
-    
+
     function login(loginData) {
         AxiosHelper({
             method: 'post',
@@ -74,22 +75,23 @@ export const AuthHelper = () => {
             successMethod: saveToken
         })
     }
-    
+
     function logout() {
         AxiosHelper({
             url: '/api/logout',
             successMethod: destroyToken,
             token
         })
+        history.push('/login')
     }
-    
+
     return { token, register, login, logout, user }
 }
 
 export const AuthProvider = (props) => {
-    
+
     const initialContext = AuthHelper();
-    
+
     return (
         <AuthContext.Provider value={initialContext}>
             {props.children}

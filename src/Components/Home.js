@@ -8,8 +8,8 @@ export default function Home() {
     return (
         <div className="container-xxl p-0">
             <div className="d-flex">
-                <img className="img-fluid d-none d-sm-none d-md-block" src="./img/CityScavengeHero.png" />
-                <img className="img-fluid d-sm-block d-md-none" src="./img/CityScavengeHero_mobile.png" />
+                <img className="img-fluid d-none d-sm-none d-md-block" src="./img/CityScavengeHero.png" alt="" />
+                <img className="img-fluid d-sm-block d-md-none" src="./img/CityScavengeHero_mobile.png" alt="" />
             </div>
             <div className="orangeBar">
             </div>
@@ -32,7 +32,7 @@ export default function Home() {
                     </p>
                 </div>
                 <div className="col col-md-6 p-0">
-                    <img className="img-fluid" src="./img/CityScavengeHunt_Thumb.png" />
+                    <img className="img-fluid" src="./img/CityScavengeHunt_Thumb.png" alt="" />
                 </div>
             </div>
             <div className="row m-4 row-cols-1 row-cols-md-2 g-4">

@@ -7,9 +7,6 @@ import Login from './Login.js';
 import Home from './Home.js';
 import Nav from './Nav.js';
 import HowItWorks from './HowItWorks.js';
-import HuntsPage from './HuntsPage.js';
-import Hunt from './Hunt.js';
-import MapPage from './MapPage.js';
 import { AuthProvider } from '../Utilities/AuthContext';
 import history from '../Utilities/history'
 import ScavengeData from '../Utilities/ScavengeData';
