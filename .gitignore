@@ -10,6 +10,7 @@
 
 # production
 /build
+Constraints.js
 
 # misc
 .DS_Store
