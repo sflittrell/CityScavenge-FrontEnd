@@ -8,7 +8,7 @@ export default function Nav() {
     const { logout, token } = useAuth()
 
     return (
-        <nav className="navbar navbar-expand-md fixed-top navbar-light bg-light">
+        <nav className="navbar navbar-expand-md fixed-top navbar-light bg-light mb-1">
             <div className="container-fluid">
                 <Link className="navbar-brand fw-bold text-warning" to={'/'}>City Scavenge</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

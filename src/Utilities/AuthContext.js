@@ -57,13 +57,18 @@ export const AuthHelper = () => {
         // console.log(user)
     }
 
+    function errorAlert(error) {
+        alert("Something went wrong, please check your email and password and try again")
+    }
+
     function register(regData) {
 
         AxiosHelper({
             method: 'post',
             url: '/api/register',
             data: regData,
-            successMethod: saveToken
+            successMethod: saveToken,
+            failureMethod: errorAlert
         })
     }
 
@@ -72,7 +77,8 @@ export const AuthHelper = () => {
             method: 'post',
             url: '/oauth/token',
             data: loginData,
-            successMethod: saveToken
+            successMethod: saveToken,
+            failureMethod: errorAlert
         })
     }
 

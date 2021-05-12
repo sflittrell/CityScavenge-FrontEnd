@@ -47,7 +47,7 @@ export const HuntHelper = () => {
     useEffect(() => {
         let lsHuntProgress = window.localStorage.getItem('huntProgress');
         let lsToken = window.localStorage.getItem('token');
-        { console.log('lsHuntProgress', lsHuntProgress) }
+        // console.log('lsHuntProgress', lsHuntProgress)
 
         if (lsHuntProgress && lsToken) {
             let newlsHuntProgress = JSON.parse(lsHuntProgress)
@@ -66,7 +66,7 @@ export const HuntHelper = () => {
 
     function saveHuntData(response) {
         setHuntData(response.data);
-        console.log('hunt response', response)
+        // console.log('hunt response', response)
         // updateHuntProgress()
         setHuntProgress(prev => {
             let newHuntProgress = { ...prev }
@@ -75,23 +75,31 @@ export const HuntHelper = () => {
             return newHuntProgress
         })
         console.log('saveHuntData')
-        history.push('/map')
+        // history.push('/map')
     }
 
-    // function updateHuntProgress(key, value) {
-    //     setHuntProgress(prev => {
-    //         let newHuntProgress = { ...prev }
-    //         newHuntProgress.hunt = value
-    //         window.localStorage.setItem('huntProgress', JSON.stringify(newHuntProgress))
-    //         return newHuntProgress
-    //     })
-    // }
+    function winHunt() {
+        let today = new Date();
+        let dateTime = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+' '+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        AxiosHelper({
+            method: 'post',
+            data: dateTime,
+            url: `/api/userhunt/update/${huntProgress.hunt}`,
+            token,
+            successMethod: win
+    })
+}
 
-    // function saveHuntProgress(key, value) {
-    //     setHuntProgress(key = value)
-    //     window.localStorage.setItem('huntProgress', JSON.stringify(huntProgress))
-
-    // }
+function win() {
+    window.localStorage.removeItem('huntProgress');
+    history.push('/win/')
+    setHuntProgress(prev => {
+        let newHuntProgress = { ...prev }
+        newHuntProgress.waypoint = 0;
+        newHuntProgress.atWaypoint = false;
+        return newHuntProgress
+    })
+}
 
     useEffect(() => {
         AxiosHelper({
@@ -120,7 +128,7 @@ export const HuntHelper = () => {
         return d
     }
 
-    return { huntsList, createHuntData, huntData, findDistance, huntProgress, setHuntProgress }
+    return { huntsList, createHuntData, huntData, findDistance, huntProgress, setHuntProgress, winHunt }
 }
 
 export const HuntProvider = (props) => {

@@ -27,11 +27,13 @@ export default function Home() {
             </div>
             <div className="row intro my-5 text-light">
                 <div className="col p-5 col-md-6">
-                    <p>
+                    
                         Get ready for the adventure of a lifetime. Out team has created carefully crafted experiences that will have you in giddy with laughter or screaming in fright. Every adventure is designed to help you explore, discover, connect, and laugh.
-                    </p>
+                    <div className="mt-5">
+                    <i className="bi bi-binoculars-fill display-1 text-light" />
+                    </div>
                 </div>
-                <div className="col col-md-6 p-0">
+                <div className="col col-md-6 d-none d-sm-none d-md-block p-0">
                     <img className="img-fluid" src="./img/CityScavengeHunt_Thumb.png" alt="" />
                 </div>
             </div>
