@@ -28,7 +28,7 @@ export default function Home() {
             <div className="row intro my-5 text-light">
                 <div className="col p-5 col-md-6">
                     
-                        Get ready for the adventure of a lifetime. Out team has created carefully crafted experiences that will have you in giddy with laughter or screaming in fright. Every adventure is designed to help you explore, discover, connect, and laugh.
+                        Get ready for the adventure of a lifetime. City Scavenge is a breakout room without the room, a scavenger hunt that takes you across the city. You'll solve riddles and hunt down clues in order to complete challenges. Our team has created carefully crafted experiences that will have you giddy with laughter or screaming in fright. Every adventure is designed to help you explore, discover, connect, and laugh.
                     <div className="mt-5">
                     <i className="bi bi-binoculars-fill display-1 text-light" />
                     </div>

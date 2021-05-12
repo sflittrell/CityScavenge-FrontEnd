@@ -3,7 +3,7 @@ import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { googleKey } from './constraints.js';
 import Footer from './Footer.js';
 import { useHunt } from '../Utilities/HuntContext';
-import history from '../Utilities/history';
+// import history from '../Utilities/history';
 
 export default function MapPage() {
 
@@ -33,8 +33,8 @@ export default function MapPage() {
             lng: position.coords.longitude
           }
           setCurrentPosition(previousState => geoPosition);
-          console.log("Latitude is :", position.coords.latitude);
-          console.log("Longitude is :", position.coords.longitude);
+          // console.log("Latitude is :", position.coords.latitude);
+          // console.log("Longitude is :", position.coords.longitude);
         }
 
         function error(err) {
@@ -75,14 +75,11 @@ export default function MapPage() {
     e.preventDefault();
     // console.log('answer', huntData.hunts.waypoints[huntProgress.waypoint].answer);
     if (formInput === huntData.hunts.waypoints[huntProgress.waypoint].answer) {
-      console.log('submit 1')
       if (huntData.hunts.waypoints.length <= huntProgress.waypoint + 1) {
-        console.log('submit 2')
         winHunt();
         
       } else {
         // setHuntProgress({ ...huntProgress, waypoint: huntProgress.waypoint + 1, })
-        console.log('submit 3')
         setHuntProgress(prev => {
           let newHuntProgress = { ...prev }
           newHuntProgress.waypoint = newHuntProgress.waypoint + 1;
@@ -92,9 +89,9 @@ export default function MapPage() {
         })
       }
 
-      console.log('success', huntProgress)
+      // console.log('success', huntProgress)
     } else {
-      console.log('fail');
+      // console.log('fail');
     }
   }
 
@@ -129,11 +126,11 @@ export default function MapPage() {
         <div className="col">
           {isLoaded && Object.keys(currentPosition).length > 0 && Object.keys(huntData).length > 0 ?
             <>
-              {console.log('distance from current location to waypoint', currentPosition.lat, currentPosition.lng, Number(huntData.hunts.waypoints[0].lat), Number(huntData.hunts.waypoints[0].lng), findDistance(currentPosition.lat, currentPosition.lng, huntData.hunts.waypoints[0].lat, huntData.hunts.waypoints[0].lng))}
+              {/* {console.log('distance from current location to waypoint', currentPosition.lat, currentPosition.lng, Number(huntData.hunts.waypoints[0].lat), Number(huntData.hunts.waypoints[0].lng), findDistance(currentPosition.lat, currentPosition.lng, huntData.hunts.waypoints[0].lat, huntData.hunts.waypoints[0].lng))} */}
               <div className="alert alert-success alert-dismissible fade show" role="alert">
                 <h4 className="alert-heading">Clue...</h4>
-                <p>{findDistance(currentPosition.lat, currentPosition.lng, huntData.hunts.waypoints[huntProgress.waypoint].lat, huntData.hunts.waypoints[huntProgress.clue].lng)}</p>
-                <p>{currentPosition.lat}</p> <p>{currentPosition.lng}</p>
+                {/* <p>{findDistance(currentPosition.lat, currentPosition.lng, huntData.hunts.waypoints[huntProgress.waypoint].lat, huntData.hunts.waypoints[huntProgress.clue].lng)}</p> */}
+                {/* <p>{currentPosition.lat}</p> <p>{currentPosition.lng}</p> */}
                 <p>{!huntProgress.atWaypoint ?
                   huntData.hunts.waypoints[huntProgress.waypoint].clues[huntProgress.clue].clueText
                   :

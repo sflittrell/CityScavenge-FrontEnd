@@ -75,7 +75,7 @@ export const HuntHelper = () => {
             window.localStorage.setItem('huntProgress', JSON.stringify(newHuntProgress))
             return newHuntProgress
         })
-        console.log('saveHuntData')
+        // console.log('saveHuntData')
         // history.push('/map')
     }
 
