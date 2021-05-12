@@ -35,6 +35,7 @@ export const HuntHelper = () => {
                     data: { hunt_id: parseInt(id) },
                     successMethod: saveHuntData
                 })
+                history.push('/map/')
             } else {
                 history.push('/map/')
             }

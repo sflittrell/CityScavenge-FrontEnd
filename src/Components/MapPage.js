@@ -43,7 +43,7 @@ export default function MapPage() {
 
         // possibly use watchPosition instead of setInterval with getCurrentPosition
         navigator.geolocation.getCurrentPosition(success, error, options);
-      }, 10000)
+      }, 5000)
 
       if (huntData && huntProgress.hunt > 0 && currentPosition) {
         // console.log('huntData', huntData, 'huntProgress', huntProgress)
@@ -52,7 +52,7 @@ export default function MapPage() {
         let waypointLat = huntData.hunts.waypoints[huntProgress.waypoint].lat
         let waypointLng = huntData.hunts.waypoints[huntProgress.clue].lng
         let dist = findDistance(currentLat, currentLng, waypointLat, waypointLng)
-        let wayDist = 100/*huntData.hunts.waypoints[huntProgress.waypoint].distance;*/
+        let wayDist = huntData.hunts.waypoints[huntProgress.waypoint].distance;
         // let clueDist = huntData.hunts.waypoints[huntProgress.clue].clues[huntProgress.clue].distance;
         if (dist < wayDist && !huntProgress.atWaypoint) {
           setHuntProgress({ ...huntProgress, atWaypoint: true })
@@ -79,8 +79,7 @@ export default function MapPage() {
       if (huntData.hunts.waypoints.length <= huntProgress.waypoint + 1) {
         console.log('submit 2')
         winHunt();
-        window.localStorage.removeItem('huntProgress');
-        history.push('/win/')
+        
       } else {
         // setHuntProgress({ ...huntProgress, waypoint: huntProgress.waypoint + 1, })
         console.log('submit 3')
@@ -144,6 +143,7 @@ export default function MapPage() {
                     <div className="mb-3">
                       <label htmlFor="question" className="form-label">Answer Here</label>
                       <input type="question" className="form-control" id="question" value={formInput || ''} onChange={handleChange} aria-describedby="question" />
+                      <h6>No need for spelling here. All answers will be numbers.</h6>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                   </form>
